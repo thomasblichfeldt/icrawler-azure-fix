@@ -126,8 +126,6 @@ class Downloader(ThreadPool):
         while retry > 0 and not self.signal.get('reach_max_num'):
             try:
                 response = self.session.get(file_url, timeout=timeout, allow_redirects=self.allow_redirects)
-                print(response.headers)
-                print(response.content)
             except Exception as e:
                 self.logger.error('Exception caught when downloading file %s, '
                                   'error: %s, remaining retry times: %d',

@@ -97,10 +97,6 @@ class Parser(ThreadPool):
                                                 headers={'Referer': base_url},
                                                 allow_redirects=self.allow_redirects)
 
-                    print("PARSER RESPONE")
-                    print(response.headers)
-                    print(response.content)
-                    
                 except Exception as e:
                     self.logger.error(
                         'Exception caught when fetching page %s, '
