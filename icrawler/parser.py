@@ -25,11 +25,12 @@ class Parser(ThreadPool):
         lock: A threading.Lock object.
     """
 
-    def __init__(self, thread_num, signal, session):
+    def __init__(self, thread_num, signal, session, allow_redirects=False):
         """Init Parser with some shared variables."""
         super(Parser, self).__init__(thread_num, name='parser')
         self.signal = signal
         self.session = session
+        self.allow_redirects = allow_redirects
 
     def parse(self, response, **kwargs):
         """Parse a page and extract image urls, then put it into task_queue.
@@ -93,7 +94,13 @@ class Parser(ThreadPool):
                     base_url = '{0.scheme}://{0.netloc}'.format(urlsplit(url))
                     response = self.session.get(url,
                                                 timeout=req_timeout,
-                                                headers={'Referer': base_url})
+                                                headers={'Referer': base_url},
+                                                allow_redirects=self.allow_redirects)
+
+                    print("PARSER RESPONE")
+                    print(response.headers)
+                    print(response.content)
+                    
                 except Exception as e:
                     self.logger.error(
                         'Exception caught when fetching page %s, '
