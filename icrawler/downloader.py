@@ -99,6 +99,7 @@ class Downloader(ThreadPool):
                  timeout=5,
                  max_retry=3,
                  overwrite=False,
+                 allow_redirects=False
                  **kwargs):
         """Download the image and save it to the corresponding path.
 
@@ -124,7 +125,7 @@ class Downloader(ThreadPool):
 
         while retry > 0 and not self.signal.get('reach_max_num'):
             try:
-                response = self.session.get(file_url, timeout=timeout)
+                response = self.session.get(file_url, timeout=timeout, allow_redirects=allow_redirects)
             except Exception as e:
                 self.logger.error('Exception caught when downloading file %s, '
                                   'error: %s, remaining retry times: %d',
