@@ -99,7 +99,7 @@ class Downloader(ThreadPool):
                  timeout=5,
                  max_retry=3,
                  overwrite=False,
-                 allow_redirects=False
+                 allow_redirects=False,
                  **kwargs):
         """Download the image and save it to the corresponding path.
 
