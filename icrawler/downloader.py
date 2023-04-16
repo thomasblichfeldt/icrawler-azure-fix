@@ -28,7 +28,7 @@ class Downloader(ThreadPool):
         storage (BaseStorage): storage backend.
     """
 
-    def __init__(self, thread_num, signal, session, storage):
+    def __init__(self, thread_num, signal, session, storage, allow_redirects=False):
         """Init Parser with some shared variables."""
         super(Downloader, self).__init__(
             thread_num, out_queue=None, name='downloader')
@@ -37,6 +37,7 @@ class Downloader(ThreadPool):
         self.storage = storage
         self.file_idx_offset = 0
         self.clear_status()
+        self.allow_redirects=allow_redirects
 
     def clear_status(self):
         """Reset fetched_num to 0."""
@@ -99,7 +100,6 @@ class Downloader(ThreadPool):
                  timeout=5,
                  max_retry=3,
                  overwrite=False,
-                 allow_redirects=False,
                  **kwargs):
         """Download the image and save it to the corresponding path.
 
@@ -125,7 +125,7 @@ class Downloader(ThreadPool):
 
         while retry > 0 and not self.signal.get('reach_max_num'):
             try:
-                response = self.session.get(file_url, timeout=timeout, allow_redirects=allow_redirects)
+                response = self.session.get(file_url, timeout=timeout, allow_redirects=self.allow_redirects)
                 print(response.headers)
                 print(response.content)
             except Exception as e:
