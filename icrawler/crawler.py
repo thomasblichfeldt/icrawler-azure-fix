@@ -145,7 +145,7 @@ class Crawler(object):
                 ('Mozilla/5.0 (Windows NT 10.0; Win64; x64)'
                  ' AppleWebKit/537.36 (KHTML, like Gecko) '
                  'Chrome/88.0.4324.104 Safari/537.36'),
-                 'Cookie': 'CONSENT=PENDING+705; expires=Tue, 15-Apr-2025 10:41:25 GMT; path=/; domain=.google.com; Secure'
+                 'Cookie': 'CONSENT=YES+705; expires=Tue, 15-Apr-2025 10:41:25 GMT; path=/; domain=.google.com; Secure'
             }
         elif not isinstance(headers, dict):
             raise TypeError('"headers" must be a dict object')
