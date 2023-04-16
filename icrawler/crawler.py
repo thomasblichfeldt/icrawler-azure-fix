@@ -39,8 +39,7 @@ class Crawler(object):
                  log_level=logging.INFO,
                  extra_feeder_args=None,
                  extra_parser_args=None,
-                 extra_downloader_args=None,
-                 allow_redirects=False
+                 extra_downloader_args=None
                  ):
         """Init components with class names and other arguments.
 
@@ -70,7 +69,7 @@ class Crawler(object):
         self.parser = parser_cls(parser_threads, self.signal, self.session,
                                  **parser_kwargs)
         self.downloader = downloader_cls(downloader_threads, self.signal,
-                                         self.session, self.storage, allow_redirects=allow_redirects
+                                         self.session, self.storage,
                                          **downloader_kwargs)
         # connect all components
         self.feeder.connect(self.parser).connect(self.downloader)
